@@ -7,16 +7,17 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
+        int threads = Runtime.getRuntime().availableProcessors();
         runNThreads(1);
-        runNThreads(12);
-        runNThreads(24);
+        runNThreads(threads);
+        runNThreads(threads * 2);
         System.exit(0);
     }
 
     private static void runNThreads(int n) {
         runTenTimes(n, 1);
         runTenTimes(n, 10);
-        runTenTimes(n, Mandelbrot.WIDTH * Mandelbrot.HEIGHT);
+        runTenTimes(n, Const.WIDTH * Const.HEIGHT);
     }
 
     private static void runTenTimes(int n, int taskCount) {
@@ -26,11 +27,11 @@ public class Main {
             Mandelbrot mandelbrot = new Mandelbrot(taskCount, executorService);
             times.add(mandelbrot.getTime());
         }
-        System.out.println("ENDED FOR " + n + "THREADS");
+        System.out.println("ENDED FOR " + n + " THREADS");
         print(times);
     }
 
-    private static void print(List<Long> times){
+    private static void print(List<Long> times) {
         double average = times.stream()
                 .mapToLong(Long::longValue)
                 .average().orElseThrow();

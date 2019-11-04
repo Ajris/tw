@@ -17,6 +17,7 @@ public class Mandelbrot extends JFrame {
         super("Mandelbrot Set");
         setBounds(100, 100, Const.WIDTH, Const.HEIGHT);
         setResizable(false);
+        setVisible(true);
         I = new BufferedImage(Const.WIDTH, getHeight(), BufferedImage.TYPE_INT_RGB);
 
         int pixelNumber = Const.WIDTH * Const.HEIGHT;
