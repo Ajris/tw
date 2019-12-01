@@ -24,7 +24,7 @@ public class Philosopher implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
+        while (forkAcquiringCount < 10) {
             if (Main.waiter.tryAcquire()) {
                 if (leftFork.tryLock()) {
                     if (rightFork.tryLock()) {
@@ -45,6 +45,13 @@ public class Philosopher implements Runnable {
             }
             waitForFork();
         }
+
+        try {
+            Thread.sleep(3000); // WAIT FOR OTHERS
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.printf("%.2f\n", getAverageTime());
     }
 
     private void waitForFork() {
