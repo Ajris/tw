@@ -1,4 +1,4 @@
-package task2;
+package task3;
 
 import java.util.concurrent.locks.Lock;
 
@@ -24,34 +24,30 @@ public class Philosopher implements Runnable {
     public void run() {
         long lastEatingTime = System.currentTimeMillis();
         while (forkAcquiringCount < 10) {
-            if (Main.waiter.tryAcquire()) {
-                if (leftFork.tryLock()) {
-                    if (rightFork.tryLock()) {
-                        System.out.printf("Zaczynam jesc: %d\n", id);
-                        long curr = System.currentTimeMillis();
-                        forkAcquiringTime += curr - lastEatingTime;
-                        lastEatingTime = curr;
-                        forkAcquiringCount++;
-                        System.out.printf("Koncze jesc: %d\n", id);
-                        rightFork.unlock();
-                    } else {
-                        System.out.printf("NIE MA PRAWEGO: %d\n", id);
-                    }
+            if (leftFork.tryLock()) {
+                if (rightFork.tryLock()) {
+                    System.out.printf("Zaczynam jesc: %d\n", id);
+                    long curr = System.currentTimeMillis();
+                    forkAcquiringTime += curr - lastEatingTime;
+                    lastEatingTime = curr;
+                    forkAcquiringCount++;
+                    System.out.printf("Koncze jesc: %d\n", id);
+                    rightFork.unlock();
                     leftFork.unlock();
                 } else {
-                    System.out.printf("NIE MA LEWEGO: %d\n", id);
+                    System.out.printf("NIE MA PRAWEGO: %d\n", id);
                 }
-                Main.waiter.release();
+            } else {
+                System.out.printf("NIE MA LEWEGO: %d\n", id);
             }
             waitForFork();
         }
-
         try {
             Thread.sleep(3000); // WAIT FOR OTHERS
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.printf("%.1f\n", getAverageTime());
+        System.out.printf("%.2f\n", getAverageTime());
     }
 
     private void waitForFork() {

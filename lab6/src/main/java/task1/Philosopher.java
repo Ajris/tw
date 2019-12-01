@@ -7,7 +7,6 @@ public class Philosopher implements Runnable {
     private final int WAIT_TIME = 100;
     private Lock leftFork;
     private Lock rightFork;
-    private long startTime;
     private long forkAcquiringCount = 0;
     private long forkAcquiringTime = 0;
 
@@ -15,7 +14,6 @@ public class Philosopher implements Runnable {
         this.id = id;
         this.leftFork = Main.forks.get(id);
         this.rightFork = Main.forks.get((id + 1) % Main.forks.size());
-        startTime = System.currentTimeMillis();
     }
 
     public float getAverageTime() {
@@ -24,13 +22,15 @@ public class Philosopher implements Runnable {
 
     @Override
     public void run() {
+        long lastEatingTime = System.currentTimeMillis();
         while (forkAcquiringCount < 10) {
             if (leftFork.tryLock()) {
                 if (rightFork.tryLock()) {
                     System.out.printf("Zaczynam jesc: %d\n", id);
-                    forkAcquiringTime += System.currentTimeMillis() - startTime;
+                    long curr = System.currentTimeMillis();
+                    forkAcquiringTime += curr - lastEatingTime;
+                    lastEatingTime = curr;
                     forkAcquiringCount++;
-                    waitForFork();
                     System.out.printf("Koncze jesc: %d\n", id);
                     rightFork.unlock();
                 } else {

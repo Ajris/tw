@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
-    static final int forksCount = 15;
+    static final int forksCount = 17;
     static List<Lock> forks = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {

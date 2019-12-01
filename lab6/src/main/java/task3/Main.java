@@ -1,15 +1,13 @@
-package task2;
+package task3;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
-    static final int forksCount = 17;
+    static final int forksCount = 5;
     static List<Lock> forks = new ArrayList<>();
-    static Semaphore waiter = new Semaphore(forksCount - 1);
 
     public static void main(String[] args) throws InterruptedException {
         for (int i = 0; i < forksCount; i++)
