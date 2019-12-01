@@ -40,14 +40,14 @@ public class Philosopher implements Runnable {
             } else {
                 System.out.printf("NIE MA LEWEGO: %d\n", id);
             }
-            waitForFork();
+//            waitForFork();
         }
         try {
             Thread.sleep(3000); // WAIT FOR OTHERS
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.printf("%.2f\n", getAverageTime());
+        System.out.printf("%.1f\n", getAverageTime());
     }
 
     private void waitForFork() {

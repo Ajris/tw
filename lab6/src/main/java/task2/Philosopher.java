@@ -43,7 +43,7 @@ public class Philosopher implements Runnable {
                 }
                 Main.waiter.release();
             }
-            waitForFork();
+//            waitForFork();
         }
 
         try {

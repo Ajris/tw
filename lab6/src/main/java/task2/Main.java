@@ -7,7 +7,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
-    static final int forksCount = 17;
+    static final int forksCount = 5;
     static List<Lock> forks = new ArrayList<>();
     static Semaphore waiter = new Semaphore(forksCount - 1);
 
