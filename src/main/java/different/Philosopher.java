@@ -18,7 +18,11 @@ public class Philosopher implements Runnable {
                 for (int i = 1; i < 5; i++) {
                     claiming[philosopherId] = i;
                     marking[i] = philosopherId;
-                    while (((claiming[(philosopherId + 1) % 5]) >= 5 || (claiming[(philosopherId + 2) % 5]) >= 5 || (claiming[(philosopherId + 3) % 5]) >= 5 || (claiming[(philosopherId + 4) % 5]) >= 5) && (marking[i] == philosopherId))
+                    while (((claiming[(philosopherId + 1) % 5]) >= 5 ||
+                            (claiming[(philosopherId + 2) % 5]) >= 5 ||
+                            (claiming[(philosopherId + 3) % 5]) >= 5 ||
+                            (claiming[(philosopherId + 4) % 5]) >= 5) &&
+                            (marking[i] == philosopherId))
                         ;
                 }
                 claiming[philosopherId] = 5;
